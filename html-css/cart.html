@@ -214,30 +214,40 @@
         localStorage.setItem('cart', JSON.stringify(cart));
     }
 
-    // --- BƯỚC 4: HÀM TĂNG/GIẢM SỐ LƯỢNG ---
-    window.changeQty = function(id, delta) {
-        const item = cart.find(i => i.id === id);
-        if (item) {
-            item.qty += delta;
-            
-            // Nếu giảm xuống 0 thì xóa luôn
-            if (item.qty <= 0) {
-                removeItem(id);
-            } else {
-                renderCart(); // Vẽ lại giao diện
-            }
+  // --- BƯỚC 4: HÀM TĂNG/GIẢM SỐ LƯỢNG ---
+window.changeQty = function(id, delta) {
+    // Ép kiểu id sang String để so sánh chính xác
+    const item = cart.find(i => String(i.id) === String(id)); 
+    
+    if (item) {
+        item.qty += delta;
+        
+        if (item.qty <= 0) {
+            window.removeItem(id);
+        } else {
+            // Cập nhật dữ liệu rồi vẽ lại
+            updateTotals();
+            renderCart(); 
         }
     }
+}
 
-    // --- BƯỚC 5: HÀM XÓA SẢN PHẨM (ICON THÙNG RÁC) ---
-    window.removeItem = function(id) {
-        // Lọc bỏ sản phẩm có id được chọn
-        cart = cart.filter(item => item.id !== id);
+// --- BƯỚC 5: HÀM XÓA SẢN PHẨM (ICON THÙNG RÁC) ---
+window.removeItem = function(id) {
+    // Lọc bỏ sản phẩm (ép kiểu String để tránh lỗi)
+    cart = cart.filter(item => String(item.id) !== String(id));
+    
+    updateTotals(); // Lưu vào LocalStorage
+    renderCart();   // Vẽ lại giao diện
+}
+
+// --- BƯỚC 6: HÀM XÓA TẤT CẢ (Nếu bạn muốn thêm nút Xóa hết) ---
+window.clearAllCart = function() {
+    if(confirm("Bạn có chắc muốn xóa toàn bộ giỏ hàng?")) {
+        cart = [];
         renderCart();
     }
-
-    // Chạy hàm hiển thị lần đầu khi load trang
-    renderCart();
+}
 </script>
 </body>
 </html>
