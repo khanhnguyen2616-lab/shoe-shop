@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Selection | URBAN STEP</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+   <header class="navbar">
+    <a href="index.html" class="logo">URBAN STEP</a>
+    <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">New Releases</a>
+        <a href="#">Contact</a>
+    </nav>
+    <div class="nav-icons">
+        <span>Search</span>
+        <a href="cart.html">
+        <span class="cart-icon">Cart (<span id="cart-count">0</span>)</span></a>
+        <span>Account</span>
+    </div>
+</header>
+
+    <main class="checkout-container">
+        <a href="index.html" class="back-link">← Continue shopping</a>
+        
+        <div class="checkout-layout">
+            <section class="selection-section">
+                <h1 class="section-title">Your Selection</h1>
+                
+                <div id="cart-items-list">
+                    <div class="cart-item" id="item-1">
+                        <div class="item-img">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Nike Air Max">
+                        </div>
+                        
+                        <div class="item-details">
+                            <div class="item-info">
+                                <h3>Nike Air Max</h3>
+                                <p class="item-sub">Men's Shoes</p>
+                                <p class="item-desc">Light Orewood Brown/Medium Olive/Sail/Off-Noir</p>
+                                <p class="item-size">Size: 40</p>
+                            </div>
+                            <p class="item-price" data-base-price="120">$120</p>
+                        </div>
+
+                        <div class="item-actions">
+                            <div class="quantity-control">
+                                <button class="btn-qty minus">−</button>
+                                <span class="qty-number">1</span>
+                                <button class="btn-qty plus">+</button>
+                            </div>
+                            <button class="btn-delete" title="Remove item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="summary-section">
+                <h2 class="section-title">Summary</h2>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">$120</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+                <hr>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span id="total-price">$120</span>
+                </div>
+
+                <div class="checkout-btns">
+                    <button class="btn-checkout guest">Guest Checkout</button>
+                    <button class="btn-checkout member">Member Checkout</button>
+                </div>
+            </aside>
+        </div>
+        
+    </main>
+<section class="featured">
+    <h2 class="section-title">YOU MIGHT ALSO LIKE</h2>
+    <div class="product-grid">
+
+        <div class="product-card">
+            <div class="badge">New</div>
+           <a href="product.html">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Nike Air Max">
+            </a>
+            <div class="product-info">
+                <h3>Nike Air Max</h3>
+                <p>Running Shoes</p>
+                <span class="price">$120</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="badge">New</div>
+              <a href="product.html">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Nike Air Max">
+            </a>
+            <div class="product-info">
+                <h3>Nike Air Max</h3>
+                <p>Running Shoes</p>
+                <span class="price">$120</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="badge">New</div>
+            <a href="product.html">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Nike Air Max">
+            </a>
+            <div class="product-info">
+                <h3>Nike Air Max</h3>
+                <p>Running Shoes</p>
+                <span class="price">$120</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="badge">New</div>
+            <a href="product.html">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Nike Air Max">
+            </a>
+            <div class="product-info">
+                <h3>Nike Air Max</h3>
+                <p>Running Shoes</p>
+                <span class="price">$120</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+   <script>
+    const cartItemsList = document.getElementById('cart-items-list');
+    const subtotalEl = document.getElementById('subtotal');
+    const totalEl = document.getElementById('total-price');
+    const headerCount = document.getElementById('cart-count');
+
+    // --- BƯỚC 1: LẤY DỮ LIỆU TỪ LOCALSTORAGE ---
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // --- BƯỚC 2: HÀM HIỂN THỊ GIỎ HÀNG RA MÀN HÌNH ---
+    function renderCart() {
+        if (cart.length === 0) {
+            cartItemsList.innerHTML = "<p style='padding:20px;'>Giỏ hàng của bạn đang trống.</p>";
+            updateTotals();
+            return;
+        }
+
+        // Tạo HTML cho từng sản phẩm trong mảng cart
+        cartItemsList.innerHTML = cart.map((item, index) => `
+            <div class="cart-item" data-id="${item.id}">
+                <div class="item-img">
+                    <img src="${item.img}" alt="${item.name}">
+                </div>
+                <div class="item-details">
+                    <div class="item-info">
+                        <h3>${item.name}</h3>
+                        <p class="item-desc">Size: ${item.size || 'N/A'}</p>
+                    </div>
+                    <p class="item-price" data-base-price="${item.price}">$${item.price}</p>
+                </div>
+                <div class="item-actions">
+                    <div class="quantity-control">
+                        <button class="btn-qty minus" onclick="changeQty('${item.id}', -1)">−</button>
+                        <span class="qty-number">${item.qty}</span>
+                        <button class="btn-qty plus" onclick="changeQty('${item.id}', 1)">+</button>
+                    </div>
+                    <button class="btn-delete" onclick="removeItem('${item.id}')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+
+        updateTotals();
+    }
+
+    // --- BƯỚC 3: HÀM CẬP NHẬT TỔNG TIỀN & LƯU TRỮ ---
+    function updateTotals() {
+        let total = 0;
+        let itemsCount = 0;
+
+        cart.forEach(item => {
+            total += item.price * item.qty;
+            itemsCount += item.qty;
+        });
+
+        subtotalEl.innerText = `$${total.toFixed(2)}`;
+        totalEl.innerText = `$${total.toFixed(2)}`;
+        if(headerCount) headerCount.innerText = itemsCount;
+
+        // Lưu lại dữ liệu mới nhất vào LocalStorage để các trang khác đồng bộ theo
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    // --- BƯỚC 4: HÀM TĂNG/GIẢM SỐ LƯỢNG ---
+    window.changeQty = function(id, delta) {
+        const item = cart.find(i => i.id === id);
+        if (item) {
+            item.qty += delta;
+            
+            // Nếu giảm xuống 0 thì xóa luôn
+            if (item.qty <= 0) {
+                removeItem(id);
+            } else {
+                renderCart(); // Vẽ lại giao diện
+            }
+        }
+    }
+
+    // --- BƯỚC 5: HÀM XÓA SẢN PHẨM (ICON THÙNG RÁC) ---
+    window.removeItem = function(id) {
+        // Lọc bỏ sản phẩm có id được chọn
+        cart = cart.filter(item => item.id !== id);
+        renderCart();
+    }
+
+    // Chạy hàm hiển thị lần đầu khi load trang
+    renderCart();
+</script>
+</body>
+</html>

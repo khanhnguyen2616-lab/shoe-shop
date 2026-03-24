@@ -1,0 +1,561 @@
+/* --- GIỮ NGUYÊN RESET & BASE STYLES CỦA BẠN --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- 1. HEADER & NAVBAR --- */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 1000;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.logo {
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.nav-links a {
+    margin: 0 15px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.nav-icons span {
+    margin-left: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* --- 2. HERO SECTION --- */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                url('https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 5rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: -2px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.btn-cta {
+    padding: 15px 40px;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.btn-cta:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* --- 3. PRODUCT GRID (TRANG CHỦ) --- */
+.featured, .limited-drops {
+    padding: 80px 5%;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    position: relative;
+    border: 1px solid #f0f0f0;
+    transition: transform 0.3s;
+}
+
+.product-card img {
+    width: 100%;
+    display: block;
+    max-height: 600px; 
+    object-fit: cover; 
+}
+
+.badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #000;
+    color: #fff;
+    padding: 5px 12px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.product-info {
+    padding: 20px;
+    text-align: left;
+}
+
+.product-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.product-info p {
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.price {
+    display: block;
+    margin: 15px 0;
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+.old-price {
+     text-decoration: line-through;
+     color: #999;
+     margin-right: 5px;
+}
+
+.add-to-cart {
+    width: 100%;
+    padding: 12px;
+    background: none;
+    border: 1px solid #000;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-to-cart:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* --- TÍCH HỢP: TRANG CHI TIẾT SẢN PHẨM (PDP) --- */
+/* Sử dụng tiền tố .pdp- để tránh xung đột */
+
+.pdp-section {
+    padding: 120px 5% 80px; /* Padding top lớn để không bị Header che */
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.pdp-images-container {
+    display: flex;
+    gap: 20px;
+}
+
+.pdp-thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pdp-thumb {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 1px solid #eee;
+    background-color: #f9f9f9;
+    transition: 0.2s;
+}
+
+.pdp-thumb.active, .pdp-thumb:hover {
+    border-color: #000;
+}
+
+.pdp-main-display {
+    width: 550px;
+    height: 650px;
+    background-color: #f6f6f6;
+    overflow: hidden;
+}
+
+.pdp-main-display img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pdp-info-content {
+    max-width: 450px;
+}
+
+.pdp-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 10px;
+}
+
+.pdp-rating {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.pdp-price-row {
+    margin-bottom: 30px;
+}
+
+.pdp-current-price {
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+.pdp-size-selector {
+    margin-bottom: 30px;
+}
+
+.pdp-size-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.pdp-size-btn {
+    padding: 12px;
+    border: 1px solid #ddd;
+    background: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.pdp-size-btn.active {
+    background: #000;     /* Tô nền đen */
+    color: #fff;          /* Chữ trắng cho nổi bật */
+    border-color: #000;   /* Viền đen đồng nhất */
+    font-weight: 800;     /* Chữ đậm hơn nữa */
+}
+.pdp-size-btn.active, .pdp-size-btn:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.pdp-checklist {
+    list-style: none;
+    margin-bottom: 40px;
+}
+
+.pdp-checklist li {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.pdp-checklist li::before {
+    content: "✓";
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* --- 4. LIMITED DROPS --- */
+.drops-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.drop-item {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+    flex: 1;
+}
+
+.drop-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.drop-overlay {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    color: white;
+}
+
+.drop-overlay h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+/* --- 5. FOOTER & TOAST --- */
+.footer {
+    background: #f9f9f9;
+    padding: 60px 5% 20px;
+    border-top: 1px solid #eee;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.footer-brand h3 {
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.footer-links h4, .footer-social h4 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.footer-links a {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.social-icons span {
+    margin-right: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #999;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #000;
+    color: #fff;
+    padding: 16px 24px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    z-index: 2000;
+    visibility: hidden; 
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+.checkout-container {
+    max-width: 1200px;
+    margin: 100px auto 40px; 
+    padding: 0 5%;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+    display: block;
+}
+
+.checkout-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 80px;
+}
+
+.checkout-container .section-title {
+    font-weight: 800;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+/* Cart Item */
+.cart-item {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    align-items: flex-start;
+}
+
+.item-img img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    background-color: #f9f9f9;
+}
+
+.item-details {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-info h3 { font-weight: 700; margin-bottom: 5px; }
+.item-sub { font-size: 0.85rem; color: #666; }
+.item-desc { font-size: 0.8rem; color: #888; margin: 5px 0; max-width: 250px; }
+.item-size { font-size: 0.9rem; font-weight: 600; }
+.item-price { font-weight: 700; font-size: 1.1rem; }
+
+/* Điều khiển số lượng */
+.item-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid #eee;
+    padding: 5px;
+    gap: 15px;
+}
+
+.btn-qty {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    width: 25px;
+}
+
+.qty-number { font-weight: 600; min-width: 20px; text-align: center; }
+
+.btn-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    transition: 0.2s;
+}
+
+.btn-delete:hover { color: #ff0000; }
+
+/* Tóm tắt Summary */
+.summary-section {
+    background: #fff;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+hr { border: none; border-top: 1px solid #eee; margin: 20px 0; }
+
+.summary-row.total {
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+/* Buttons */
+.checkout-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.btn-checkout {
+    padding: 18px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.btn-checkout.guest { background: #000; color: #fff; }
+.btn-checkout.member { background: #fff; color: #000; border: 1px solid #000; }
+
+.btn-checkout:hover { opacity: 0.8; }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .checkout-layout { grid-template-columns: 1fr; gap: 40px; }
+}
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .pdp-section {
+        flex-direction: column;
+        padding-top: 100px;
+    }
+    .pdp-images-container {
+        flex-direction: column-reverse;
+    }
+    .pdp-thumbnails {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+    .pdp-main-display {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+    .hero h1 { font-size: 3rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .drops-container { flex-direction: column; }
+    .nav-links { display: none; }
+}

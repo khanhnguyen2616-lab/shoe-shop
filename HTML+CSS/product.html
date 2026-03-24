@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike Air Max 95 Big Bubble 'OG' | URBAN STEP</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+      <header class="navbar">
+    <a href="index.html" class="logo">URBAN STEP</a>
+    <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">New Releases</a>
+        <a href="#">Contact</a>
+    </nav>
+    <div class="nav-icons">
+        <span>Search</span>
+        <a href="cart.html">
+        <span class="cart-icon">Cart (<span id="cart-count">0</span>)</span></a>
+        <span>Account</span>
+    </div>
+</header>
+
+    <section class="pdp-section">
+        
+        <div class="pdp-images-container">
+            <div class="pdp-thumbnails">
+                  <img src="airMax.avif" alt="Shoe" class="pdp-thumb" onclick="changeProductImage(this)">
+                <img src="side.avif" alt="Side" class="pdp-thumb active" onclick="changeProductImage(this)">
+                <img src="back.avif" alt="Back" class="pdp-thumb" onclick="changeProductImage(this)">
+                <img src="top.avif" alt="Top" class="pdp-thumb" onclick="changeProductImage(this)">
+                <img src="front.avif" alt="Shoe Upper" class="pdp-thumb" onclick="changeProductImage(this)">
+            </div>
+
+            <div class="pdp-main-display">
+                <img id="pdp-big-img" src="airMax.avif" alt="Nike Air Max 95 Main View">
+            </div>
+        </div>
+
+        <div class="pdp-info-content">
+            <h1 class="pdp-title">Nike Air Max 95 Big Bubble 'OG'</h1>
+            
+            <div class="pdp-rating">
+                <span style="color: #ffcc00;">★★★★★</span> 4.8 (152 reviews)
+            </div>
+
+            <div class="pdp-price-row">
+                <span class="pdp-current-price">$190</span>
+            </div>
+
+            <div class="pdp-size-selector">
+                <h3>Select size</h3>
+                <div class="pdp-size-grid">
+                    <button class="pdp-size-btn">EU 40</button>
+                    <button class="pdp-size-btn">EU 41</button>
+                    <button class="pdp-size-btn">EU 42</button>
+                    <button class="pdp-size-btn">EU 43</button>
+                </div>
+            </div>
+
+            <ul class="pdp-checklist">
+                <li>Authentic 100%</li>
+                <li>Free shipping over $100</li>
+                <li>7-day return policy</li>
+                <li>Secure payment</li>
+            </ul>
+
+            <button class="add-to-cart pdp-add-btn" style="width: 100%; padding: 18px; background: #000; color: #fff; font-weight: bold; border: none; cursor: pointer;">
+                ADD TO CART
+            </button>
+        </div>
+    </section>
+<section class="featured">
+    <h2 class="section-title">YOU MIGHT ALSO LIKE</h2>
+    <div class="product-grid">
+
+        <div class="product-card">
+            <div class="badge">New</div>
+           <a href="product.html">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Nike Air Max">
+            </a>
+            <div class="product-info">
+                <h3>Nike Air Max</h3>
+                <p>Running Shoes</p>
+                <span class="price">$120</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="badge">New</div>
+              <a href="product.html">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Nike Air Max">
+            </a>
+            <div class="product-info">
+                <h3>Nike Air Max</h3>
+                <p>Running Shoes</p>
+                <span class="price">$120</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="badge">New</div>
+            <a href="product.html">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Nike Air Max">
+            </a>
+            <div class="product-info">
+                <h3>Nike Air Max</h3>
+                <p>Running Shoes</p>
+                <span class="price">$120</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="badge">New</div>
+            <a href="product.html">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Nike Air Max">
+            </a>
+            <div class="product-info">
+                <h3>Nike Air Max</h3>
+                <p>Running Shoes</p>
+                <span class="price">$120</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+    <div id="toast" class="toast">Đã thêm vào giỏ hàng thành công!</div>
+
+   <script>
+    // --- 1. KHAI BÁO CÁC BIẾN CẦN THIẾT ---
+    const pdpMainBtn = document.querySelector('.pdp-add-btn'); // Nút mua chính của trang PDP
+    const cartCountElement = document.getElementById('cart-count');
+    const toast = document.getElementById('toast');
+    
+    // Khởi tạo giỏ hàng từ LocalStorage (Dùng chung mảng 'cart' với trang Checkout)
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Hàm cập nhật con số hiển thị trên Header
+    function updateHeaderCount() {
+        let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+        cartCountElement.innerText = totalQty;
+    }
+    updateHeaderCount(); // Chạy ngay khi load trang
+
+    // --- 2. XỬ LÝ ĐỔI ẢNH (GIỮ NGUYÊN LOGIC CŨ) ---
+    function changeProductImage(element) {
+        document.getElementById('pdp-big-img').src = element.src;
+        document.querySelectorAll('.pdp-thumb').forEach(img => img.classList.remove('active'));
+        element.classList.add('active');
+    }
+
+    // --- 3. XỬ LÝ CHỌN SIZE (TÔ ĐẬM Ô ĐÃ CHỌN) ---
+    const sizeButtons = document.querySelectorAll('.pdp-size-btn');
+    sizeButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            sizeButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // --- 4. LOGIC QUAN TRỌNG: THÊM SẢN PHẨM A VÀO GIỎ HÀNG ---
+    pdpMainBtn.addEventListener('click', () => {
+        // Kiểm tra xem đã chọn size chưa
+        const selectedSizeBtn = document.querySelector('.pdp-size-btn.active');
+        if (!selectedSizeBtn) {
+            alert("Vui lòng chọn Size trước khi thêm vào giỏ hàng!");
+            return;
+        }
+
+        // Lấy thông tin sản phẩm từ giao diện
+        const name = document.querySelector('.pdp-title').innerText;
+        const price = parseFloat(document.querySelector('.pdp-current-price').innerText.replace('$', ''));
+        const img = document.getElementById('pdp-big-img').src;
+        const size = selectedSizeBtn.innerText;
+
+        // Tạo ID duy nhất (Ví dụ: NikeAirMax-EU41) để phân biệt các size khác nhau
+        const productId = `${name}-${size}`;
+
+        // Kiểm tra xem đôi giày size này đã có trong giỏ chưa
+        const existingProduct = cart.find(item => item.id === productId);
+
+        if (existingProduct) {
+            existingProduct.qty += 1; // Nếu có rồi thì tăng số lượng
+        } else {
+            // Nếu chưa có thì thêm mới vào mảng
+            cart.push({
+                id: productId,
+                name: name,
+                price: price,
+                img: img,
+                size: size,
+                qty: 1
+            });
+        }
+
+        // LƯU VÀO LOCALSTORAGE (Để trang Cart có thể đọc được)
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Cập nhật giao diện
+        updateHeaderCount();
+
+        // Hiệu ứng Toast & Nhảy số
+        toast.classList.add('show');
+        cartCountElement.style.transform = "scale(1.5)";
+        setTimeout(() => {
+            toast.classList.remove('show');
+            cartCountElement.style.transform = "scale(1)";
+        }, 2000);
+    });
+</script>
+</body>
+</html>
