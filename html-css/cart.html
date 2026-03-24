@@ -153,35 +153,56 @@
     const totalEl = document.getElementById('total-price');
     const headerCount = document.getElementById('cart-count');
 
-    // --- BƯỚC 1: LẤY DỮ LIỆU TỪ LOCALSTORAGE ---
+    // 1. LẤY DỮ LIỆU
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // --- BƯỚC 2: HÀM HIỂN THỊ GIỎ HÀNG RA MÀN HÌNH ---
+    // 2. HÀM CẬP NHẬT TỔNG TIỀN VÀ LOCALSTORAGE
+    function saveAndSync() {
+        let total = 0;
+        let itemsCount = 0;
+        cart.forEach(item => {
+            total += parseFloat(item.price) * item.qty;
+            itemsCount += item.qty;
+        });
+
+        if (subtotalEl) subtotalEl.innerText = `$${total.toFixed(2)}`;
+        if (totalEl) totalEl.innerText = `$${total.toFixed(2)}`;
+        if (headerCount) headerCount.innerText = itemsCount;
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    // 3. HÀM HIỂN THỊ GIỎ HÀNG
     function renderCart() {
+        if (!cartItemsList) return;
+
         if (cart.length === 0) {
-            cartItemsList.innerHTML = "<p style='padding:20px;'>Giỏ hàng của bạn đang trống.</p>";
-            updateTotals();
+            cartItemsList.innerHTML = `
+                <div style="padding: 40px; text-align: center;">
+                    <p>Your selection is empty.</p>
+                    <a href="index.html" style="color: black; text-decoration: underline;">Shop now</a>
+                </div>`;
+            saveAndSync();
             return;
         }
 
-        // Tạo HTML cho từng sản phẩm trong mảng cart
-        cartItemsList.innerHTML = cart.map((item, index) => `
-            <div class="cart-item" data-id="${item.id}">
+        cartItemsList.innerHTML = cart.map(item => `
+            <div class="cart-item">
                 <div class="item-img">
                     <img src="${item.img}" alt="${item.name}">
                 </div>
                 <div class="item-details">
                     <div class="item-info">
                         <h3>${item.name}</h3>
-                        <p class="item-desc">Size: ${item.size || 'N/A'}</p>
+                        <p class="item-sub">Size: ${item.size || '40'}</p>
                     </div>
-                    <p class="item-price" data-base-price="${item.price}">$${item.price}</p>
+                    <p class="item-price">$${item.price}</p>
                 </div>
                 <div class="item-actions">
                     <div class="quantity-control">
-                        <button class="btn-qty minus" onclick="changeQty('${item.id}', -1)">−</button>
+                        <button class="btn-qty" onclick="changeQty('${item.id}', -1)">−</button>
                         <span class="qty-number">${item.qty}</span>
-                        <button class="btn-qty plus" onclick="changeQty('${item.id}', 1)">+</button>
+                        <button class="btn-qty" onclick="changeQty('${item.id}', 1)">+</button>
                     </div>
                     <button class="btn-delete" onclick="removeItem('${item.id}')">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -192,62 +213,46 @@
                 </div>
             </div>
         `).join('');
-
-        updateTotals();
+        saveAndSync();
     }
 
-    // --- BƯỚC 3: HÀM CẬP NHẬT TỔNG TIỀN & LƯU TRỮ ---
-    function updateTotals() {
-        let total = 0;
-        let itemsCount = 0;
-
-        cart.forEach(item => {
-            total += item.price * item.qty;
-            itemsCount += item.qty;
-        });
-
-        subtotalEl.innerText = `$${total.toFixed(2)}`;
-        totalEl.innerText = `$${total.toFixed(2)}`;
-        if(headerCount) headerCount.innerText = itemsCount;
-
-        // Lưu lại dữ liệu mới nhất vào LocalStorage để các trang khác đồng bộ theo
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }
-
-  // --- BƯỚC 4: HÀM TĂNG/GIẢM SỐ LƯỢNG ---
-window.changeQty = function(id, delta) {
-    // Ép kiểu id sang String để so sánh chính xác
-    const item = cart.find(i => String(i.id) === String(id)); 
-    
-    if (item) {
-        item.qty += delta;
-        
-        if (item.qty <= 0) {
-            window.removeItem(id);
-        } else {
-            // Cập nhật dữ liệu rồi vẽ lại
-            updateTotals();
-            renderCart(); 
+    // 4. CÁC HÀM TƯƠNG TÁC (Gán vào Window)
+    window.changeQty = function(id, delta) {
+        const item = cart.find(i => String(i.id) === String(id));
+        if (item) {
+            item.qty += delta;
+            if (item.qty <= 0) removeItem(id);
+            else renderCart();
         }
-    }
-}
+    };
 
-// --- BƯỚC 5: HÀM XÓA SẢN PHẨM (ICON THÙNG RÁC) ---
-window.removeItem = function(id) {
-    // Lọc bỏ sản phẩm (ép kiểu String để tránh lỗi)
-    cart = cart.filter(item => String(item.id) !== String(id));
-    
-    updateTotals(); // Lưu vào LocalStorage
-    renderCart();   // Vẽ lại giao diện
-}
-
-// --- BƯỚC 6: HÀM XÓA TẤT CẢ (Nếu bạn muốn thêm nút Xóa hết) ---
-window.clearAllCart = function() {
-    if(confirm("Bạn có chắc muốn xóa toàn bộ giỏ hàng?")) {
-        cart = [];
+    window.removeItem = function(id) {
+        cart = cart.filter(item => String(item.id) !== String(id));
         renderCart();
-    }
-}
+    };
+
+    // 5. CHỨC NĂNG THÊM VÀO GIỎ (Dành cho các nút "Add to Cart" bên dưới)
+    document.querySelectorAll('.add-to-cart').forEach((btn, index) => {
+        btn.onclick = function() {
+            const productCard = this.closest('.product-card');
+            const name = productCard.querySelector('h3').innerText;
+            const price = parseFloat(productCard.querySelector('.price').innerText.replace('$', ''));
+            const img = productCard.querySelector('img').src;
+            const id = 'prod-' + index; // Tạo ID tạm thời
+
+            const existingItem = cart.find(i => i.name === name);
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ id, name, price, img, qty: 1 });
+            }
+            renderCart();
+            alert('Added to selection!');
+        };
+    });
+
+    // Khởi tạo trang
+    renderCart();
 </script>
 </body>
 </html>
