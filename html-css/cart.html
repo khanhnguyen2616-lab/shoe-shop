@@ -186,33 +186,38 @@
             return;
         }
 
-        cartItemsList.innerHTML = cart.map(item => `
-            <div class="cart-item">
-                <div class="item-img">
-                    <img src="${item.img}" alt="${item.name}">
-                </div>
-                <div class="item-details">
-                    <div class="item-info">
-                        <h3>${item.name}</h3>
-                        <p class="item-sub">Size: ${item.size || '40'}</p>
-                    </div>
-                    <p class="item-price">$${item.price}</p>
-                </div>
-                <div class="item-actions">
-                    <div class="quantity-control">
-                        <button class="btn-qty" onclick="changeQty('${item.id}', -1)">−</button>
-                        <span class="qty-number">${item.qty}</span>
-                        <button class="btn-qty" onclick="changeQty('${item.id}', 1)">+</button>
-                    </div>
-                    <button class="btn-delete" onclick="removeItem('${item.id}')">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                        </svg>
-                    </button>
-                </div>
+     cartItemsList.innerHTML = cart.map(item => {
+    // Ép kiểu an toàn để tránh lỗi dữ liệu lạ
+    const safeId = String(item.id).replace(/'/g, "\\'"); 
+    
+    return `
+        <div class="cart-item">
+            <div class="item-img">
+                <img src="${item.img}" alt="${item.name}">
             </div>
-        `).join('');
+            <div class="item-details">
+                <div class="item-info">
+                    <h3>${item.name}</h3>
+                    <p class="item-sub">Size: ${item.size || '40'}</p>
+                </div>
+                <p class="item-price">$${parseFloat(item.price).toFixed(2)}</p>
+            </div>
+            <div class="item-actions">
+                <div class="quantity-control">
+                    <button class="btn-qty" onclick="changeQty('${safeId}', -1)">−</button>
+                    <span class="qty-number">${item.qty}</span>
+                    <button class="btn-qty" onclick="changeQty('${safeId}', 1)">+</button>
+                </div>
+                <button class="btn-delete" onclick="removeItem('${safeId}')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    `;
+}).join('');
         saveAndSync();
     }
 
