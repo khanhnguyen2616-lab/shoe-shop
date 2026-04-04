@@ -1,4 +1,4 @@
-## URBAN STEP - Futsal & Sneaker Selection
+## URBAN STEP - Sneaker Selection
 
 > Trang web thương mại điện tử hiện đại dành cho cộng đồng yêu Sneaker. 
 > Được chuyển đổi từ thiết kế Figma sang HTML/CSS/JS thuần và triển khai trên Render.
